@@ -5,11 +5,11 @@ from . import models
 
 
 
-class ProfileInline(admin.TabularInline):
+class ProfileInline(admin.StackedInline):
     model = models.Profile
-    extra = 0
-    min_num = 1
-    max_num = 10
+    #extra = 0
+    #min_num = 1
+    #max_num = 10
     
 
 class customUser(admin.ModelAdmin):
@@ -27,3 +27,4 @@ admin.site.register(User,customUser)
 @admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['id','user']
+   
