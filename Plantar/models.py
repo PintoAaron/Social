@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     follows = models.ManyToManyField("self",related_name="followed_by",symmetrical=False,blank=True)
-    
+    date_modefied = models.DateTimeField(User,auto_now= True)
     
     def __str__(self) -> str:
         return self.user.username

@@ -7,13 +7,10 @@ from . import models
 
 class ProfileInline(admin.StackedInline):
     model = models.Profile
-    #extra = 0
-    #min_num = 1
-    #max_num = 10
     
 
 class customUser(admin.ModelAdmin):
-    moedl = User
+    model = User
     fields = ['username']
     inlines = [ProfileInline]
     
