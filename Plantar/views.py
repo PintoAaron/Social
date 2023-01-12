@@ -18,5 +18,15 @@ def profile_list(request):
     else:
         messages.success(request,"Please log in to view this Page")
         return redirect('home')
+    
+def profile(request,id):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(pk = id)
+        context = {'profile':profile}
+        return render(request,'profile.html',context)
+    else:
+        messages.success(request,"Please log in to view this Page")
+        return redirect('home')
+    
         
 

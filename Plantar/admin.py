@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group,User
+from  django.db.models import Count
 from . import models
 
 
@@ -24,4 +25,3 @@ admin.site.register(User,customUser)
 @admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['id','user']
-   
