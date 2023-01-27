@@ -25,3 +25,14 @@ admin.site.register(User,customUser)
 @admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['id','user']
+
+@admin.register(models.Plant)
+class PlantAdmin(admin.ModelAdmin):
+    list_display = ['id','user_name','body','create_at']
+    list_per_page = 10
+    search_fields = ['body']
+    
+    
+    def user_name(self,plant):
+        return plant.user.username
+    

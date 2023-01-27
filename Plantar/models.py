@@ -21,6 +21,18 @@ def create_profile(sender,instance,created,**kwargs):
         
         user_profile.follows.set([instance.profile.id])
         user_profile.save()
+
+        
+class Plant(models.Model):
+    user = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name='plants')
+    body = models.CharField(max_length=200,null=False)
+    create_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return (f"{self.user }  " 
+                f"{self.create_at:%Y-%m-%d %H:%M: }  " 
+                f"{self.body}")
+    
         
         
     
