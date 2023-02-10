@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from.models import Profile,Plant
+from .forms import PlantForm
 
 def hello(request):
     return HttpResponse('HELLO GUYS')
@@ -9,9 +10,21 @@ def hello(request):
 
 def home(request):
     if request.user.is_authenticated:
-        plants= Plant.objects.all()
-        context = {'plants':plants}
-    return render(request,'home.html',context)
+        form = PlantForm(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                plant = form.save(commit = False)
+                plant.user = request.user
+                plant.save()
+                messages.success(request,"Your Plant has being posted")
+                return redirect('home')
+                    
+        plants= Plant.objects.all().order_by('-create_at')
+        return render(request,'home.html',{'plants':plants,"form":form})
+    else:
+        plants= Plant.objects.all().order_by('-create_at')
+        return render(request,'home.html',{'plants':plants})
+
 
 def profile_list(request):
     if request.user.is_authenticated:
