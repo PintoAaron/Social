@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.http import HttpResponse
+from django.contrib.auth import login,logout,authenticate
 from.models import Profile,Plant
 from .forms import PlantForm
+
 
 def hello(request):
     return HttpResponse('HELLO GUYS')
@@ -55,3 +57,26 @@ def profile(request,id):
     
         
 
+
+
+def login_user(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.POST['username']
+            password = request.POST['password']
+            user  = authenticate(request,username=username,password=password)
+            if user is not None:
+                login(request,user)
+                messages.success(request,("You Have Successfully Logged In"))
+                return redirect('home')
+            else:
+                messages.success(request,"No account with these credentials found")
+                return redirect('login')
+        return render(request,'login.html',{})
+    else:
+         return render(request,'login.html',{})
+
+def logout_user(request):
+    logout(request)
+    messages.success(request,"Logged Out!!!")
+    return redirect('home')

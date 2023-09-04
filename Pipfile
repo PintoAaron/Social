@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 mysqlclient = "*"
+dj-database-url = "*"
+whitenoise = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
