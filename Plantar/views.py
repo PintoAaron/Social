@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth import login,logout,authenticate
 from.models import Profile,Plant
-from .forms import PlantForm
+from .forms import PlantForm,RegisterForm
 
 
 def hello(request):
@@ -80,3 +80,18 @@ def logout_user(request):
     logout(request)
     messages.success(request,"Logged Out!!!")
     return redirect('home')
+
+
+def register_user(request):
+    form = RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get("password1")
+            user = authenticate(username=username,password=password)
+            login(request,user)
+            messages.success(request,("You Have Successfully registered "))
+            return redirect('home')
+    return render(request,'register.html',{'form':form})
