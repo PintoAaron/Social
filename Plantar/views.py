@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth import login,logout,authenticate
-from.models import Profile,Plant
+from.models import Profile,Plant,Channel,ChannelPost
 from .forms import PlantForm,RegisterForm
 
 
@@ -93,3 +93,9 @@ def register_user(request):
             messages.success(request,("You Have Successfully registered "))
             return redirect('home')
     return render(request,'register.html',{'form':form})
+
+
+def channel_list(request):
+    channels = Channel.objects.all().order_by('name')
+    context = {'channels':channels}
+    return render(request,'channel_list.html',context)

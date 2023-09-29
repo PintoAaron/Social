@@ -21,8 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-$vza(3sfg37khjfagzo-3j_(3#&vgznf!df_7^+9kue=5s-(i%'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+
+SECRET_KEY = 'django-insecure-$vza(3sfg37khjfagzo-3j_(3#&vgznf!df_7^+9kue=5s-(i%'
+#SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,20 +87,20 @@ WSGI_APPLICATION = 'social.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'social',
-#         'HOST': 'localhost',
-#         'USER': 'root',
-#         'PASSWORD': 'macquena'
-#     }
-# }
-
-
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'social',
+        'HOST': 'localhost',
+        'USER': 'root',
+        'PASSWORD': 'macquena'
+    }
 }
+
+
+# DATABASES = {
+#     "default": dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

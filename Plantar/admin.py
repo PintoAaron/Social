@@ -36,3 +36,9 @@ class PlantAdmin(admin.ModelAdmin):
     def user_name(self,plant):
         return plant.user.username
     
+
+@admin.register(models.Channel)
+class ChannelAdmin(admin.ModelAdmin):
+    list_display = ['name','creator']
+    list_per_page = 10
+    search_fields = ['name']
