@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Plant
+from .models import Plant,ChannelPost
 
 
 class PlantForm(forms.ModelForm):
@@ -17,6 +17,18 @@ class PlantForm(forms.ModelForm):
         model = Plant
         exclude = ("user",)
 
+
+class ChannelPostForm(forms.ModelForm):
+    body = forms.CharField(required=True,
+                           widget=forms.widgets.Textarea(
+                               attrs={"placeholder": "Enter your Channel plants here",
+                                      "class": "form-control"}
+                           ),
+                           label="",
+                           )
+    class Meta:
+        model = ChannelPost
+        exclude = ("author",)
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))

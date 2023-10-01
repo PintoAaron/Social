@@ -14,7 +14,8 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">{{channel.name|upper}}</h5>
+        <a href="{% url 'channel' channel.id %}">
+          <h5 class="card-title">{{channel.name|upper}}</h5>
         <p class="card-text">
           <a href="{% url 'profile' channel.creator.id %}">
             @{{channel.creator.username|lower}}

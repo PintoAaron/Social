@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth import login,logout,authenticate
 from.models import Profile,Plant,Channel,ChannelPost
-from .forms import PlantForm,RegisterForm
+from .forms import PlantForm,RegisterForm,ChannelPostForm
 
 
 def hello(request):
@@ -99,3 +99,24 @@ def channel_list(request):
     channels = Channel.objects.all().order_by('name')
     context = {'channels':channels}
     return render(request,'channel_list.html',context)
+
+
+
+
+def channel(request,id):
+    if request.user.is_authenticated:
+        current_channel = Channel.objects.get(pk = id)
+        form = ChannelPostForm(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                channel_post = form.save(commit = False)
+                channel_post.author = request.user
+                channel_post.channel = current_channel
+                channel_post.save()
+                messages.success(request,"Your have successfully posted to channel")
+                return redirect('channel',id)
+        
+        channel_posts = ChannelPost.objects.filter(channel_id = id).order_by('-create_at')
+        context = {'channel':current_channel,'channel_posts':channel_posts,'form':form}
+        return render(request,'channel.html',context)
+    

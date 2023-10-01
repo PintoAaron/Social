@@ -42,3 +42,11 @@ class ChannelAdmin(admin.ModelAdmin):
     list_display = ['name','creator']
     list_per_page = 10
     search_fields = ['name']
+    
+    
+
+@admin.register(models.ChannelPost)
+class ChannelPostAdmin(admin.ModelAdmin):
+    list_display = ['channel','author','body','create_at']
+    list_per_page = 10
+    search_fields = ['author']
